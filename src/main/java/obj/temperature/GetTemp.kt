@@ -23,7 +23,7 @@ class GetTemp(private val temps: TempController) : Logging {
         logger.debug("Окончен такт считывания температур с датчиков")
     }
 
-    suspend fun run(){
+    suspend fun start(){
 //        var count = 3
 //        while (count > 0){
 //            tact()

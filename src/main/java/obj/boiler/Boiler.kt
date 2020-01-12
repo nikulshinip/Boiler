@@ -107,7 +107,7 @@ class Boiler(
     }
 
     //Функция запуска алгоритма управления котлом
-    suspend fun run(){
+    suspend fun start(){
         while (true){
             tact()
         }

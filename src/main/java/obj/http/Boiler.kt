@@ -5,12 +5,12 @@ import io.ktor.http.Parameters
 import obj.GPIO.OutputController
 import obj.setting.SettingController
 
-class Boiler(private val boilerSettingController: SettingController,
+class Boiler(boilerSettingController: SettingController,
              private val outputController: OutputController) : Setting(boilerSettingController) {
 
     override fun getSetting():String{
         val map = mutableMapOf<String, Int>()
-        boilerSettingController.setting.forEach { (_, setting) ->
+        settingController.setting.forEach { (_, setting) ->
             map += setting.name to setting.value
         }
         return Gson().toJson(map)
@@ -32,14 +32,14 @@ class Boiler(private val boilerSettingController: SettingController,
         val limit_t2 = checkParam(setting, "limit_t2", 40..60)
         if (limit_t2 == -1) return false
 
-        boilerSettingController[1].value = on
-        boilerSettingController[2].value = mode
-        boilerSettingController[3].value = power
-        boilerSettingController[4].value = limit_t1
-        boilerSettingController[5].value = limit_t2
-        boilerSettingController.write()
+        settingController[1].value = on
+        settingController[2].value = mode
+        settingController[3].value = power
+        settingController[4].value = limit_t1
+        settingController[5].value = limit_t2
+        settingController.write()
 
-        return true
+        return super.setSetting(setting)
     }
 
     fun getState():String{

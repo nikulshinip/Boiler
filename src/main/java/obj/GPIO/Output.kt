@@ -5,7 +5,7 @@ import com.pi4j.io.gpio.PinState
 import kotlinx.coroutines.delay
 import obj.Logging
 
-class Output(private val firstPin : GpioPinDigitalOutput,
+class Output(private val masterPin : GpioPinDigitalOutput,
              private val secondPin : GpioPinDigitalOutput,
              val title: String,
              private val name : String) : Logging {
@@ -16,15 +16,15 @@ class Output(private val firstPin : GpioPinDigitalOutput,
 
     init {
         secondPin.low()
-        firstPin.low()
-        firstPin.setShutdownOptions(true, PinState.LOW)
+        masterPin.low()
+        masterPin.setShutdownOptions(true, PinState.LOW)
         secondPin.setShutdownOptions(true, PinState.LOW)
         state = false
         logger.info("Инициированы пара GPIO выходов с названием: $name")
     }
 
     suspend fun on(){
-        firstPin.high()
+        masterPin.high()
         delay(100)
         secondPin.high()
         state = true
@@ -38,7 +38,7 @@ class Output(private val firstPin : GpioPinDigitalOutput,
     suspend fun off(){
         secondPin.low()
         delay(100)
-        firstPin.low()
+        masterPin.low()
         state = false
         if (logOff) {
             logger.info("Произошло отключение GPIO контанктов с именем $name")

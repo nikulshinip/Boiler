@@ -4,11 +4,11 @@ import com.google.gson.Gson
 import io.ktor.http.Parameters
 import obj.setting.SettingController
 
-class Cellar(private val cellarSettingController: SettingController) : Setting(cellarSettingController){
+class Cellar(cellarSettingController: SettingController) : Setting(cellarSettingController){
 
     override fun getSetting():String {
-        val map = mapOf("min" to cellarSettingController[1].value,
-                "max" to cellarSettingController[2].value)
+        val map = mapOf("min" to settingController[1].value,
+                "max" to settingController[2].value)
         return Gson().toJson(map)
     }
 
@@ -25,10 +25,10 @@ class Cellar(private val cellarSettingController: SettingController) : Setting(c
             logger.warn("переданны не верные параметры, '$max' <= '$min'")
             return false
         }
-        cellarSettingController[1].value = min
-        cellarSettingController[2].value = max
-        cellarSettingController.write()
-        return true
+        settingController[1].value = min
+        settingController[2].value = max
+        settingController.write()
+        return super.setSetting(setting)
     }
 
 }

@@ -31,7 +31,7 @@ class Server(tempController: TempController,
         routing {
 
             get("/"){
-                call.respondText ("HeLo WoRlD", ContentType.Text.Plain)
+                call.respondText ("ok", ContentType.Text.Plain)
             }
 
             get("/temperatures"){
@@ -77,7 +77,7 @@ class Server(tempController: TempController,
 
     }
 
-    fun run(){
+    fun start(){
         server.start(false)
         logger.info("http server is start")
     }

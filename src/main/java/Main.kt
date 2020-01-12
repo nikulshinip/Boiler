@@ -21,9 +21,9 @@ fun main() = runBlocking {
 
     val cellarSettingController = SettingController("cellarSetting.cfg")
 
-    launch { temp.run() }
-    launch { Server(tempController, gpios, boilerSettingController, cellarSettingController).run() }
-    launch { boiler.run() }
+    launch { temp.start() }
+    launch { Server(tempController, gpios, boilerSettingController, cellarSettingController).start() }
+    launch { boiler.start() }
 
     println("//---------------------------------------------------------------------")
 }
